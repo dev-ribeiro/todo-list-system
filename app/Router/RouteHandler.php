@@ -7,6 +7,7 @@ use App\Router\Routes\GetTaskByIdRoute;
 use App\Router\Routes\ListAllTasksRoute;
 use App\Router\Routes\UpdateTaskName;
 use App\Router\Routes\UpdateTaskStatusToDone;
+use App\Router\Routes\UpdateTaskStatusToUndone;
 
 class RouteHandler
 {
@@ -62,6 +63,14 @@ class RouteHandler
       $route = new UpdateTaskStatusToDone($this->pdo);
 
       $route->done($id);
+    } elseif ($method == 'PATCH' && preg_match('/^\/task\/undone\/(\d+)$/', $path, $matches)) {
+      $id = $matches[1];
+
+      $body = json_decode(file_get_contents("php://input"));
+
+      $route = new UpdateTaskStatusToUndone($this->pdo);
+
+      $route->undone($id);
     } else {
       http_response_code(404);
       echo "Route not found";
