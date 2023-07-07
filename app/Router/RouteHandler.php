@@ -5,11 +5,12 @@ namespace App\Router;
 use App\Router\Routes\CreateTaskRoute;
 use App\Router\Routes\GetTaskByIdRoute;
 use App\Router\Routes\ListAllTasksRoute;
+use App\Router\Routes\UpdateTaskName;
 
 
 class RouteHandler
 {
-  private $pdo;
+  private \PDO $pdo;
 
   public function __construct($pdo)
   {
@@ -38,6 +39,21 @@ class RouteHandler
       $route = new CreateTaskRoute($this->pdo);
 
       $route->create($task);
+    } elseif ($method == 'PUT' && preg_match('/^\/task\/(\d+)$/', $path, $matches)) {
+      $id = $matches[1];
+
+      $body = json_decode(file_get_contents("php://input"));
+
+      $task = $body->task;
+
+      if ($task === null) {
+        http_response_code(400);
+        echo json_encode("Please pass new task name");
+      }
+
+      $route = new UpdateTaskName($this->pdo);
+
+      $route->updateTaskName($task, $id);
     } else {
       http_response_code(404);
       echo "Route not found";
