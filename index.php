@@ -1,38 +1,93 @@
 <?php
 
-header("Content-Type: application/json");
+require 'vendor/autoload.php';
 
-$method = $_SERVER['REQUEST_METHOD'];
+use App\Server;
 
-$path = $_SERVER['PATH_INFO'] ?? '/';
+$server = new Server();
 
-$response = array();
+$server -> start();
 
-if ($method === 'GET' && $path === '/task') {
+// header("Content-Type: application/json");
 
-  $response['message'] = 'Endpoint GET /task';
-} elseif ($method === 'GET' && preg_match('/^\/task\/([^\/]+)$/', $path, $matches)) {
-  $id = $matches[1];
+// $method = $_SERVER['REQUEST_METHOD'];
 
-  $response['message'] = "Endpoint GET /task/$id";
-} elseif ($method === 'POST' && $path === '/task') {
+// $path = $_SERVER['PATH_INFO'] ?? '/';
 
-  $response['message'] = 'Endpoint POST /task';
-} elseif ($method === 'PUT' && preg_match('/^\/task\/([^\/]+)$/', $path, $matches)) {
-  $id = $matches[1];
+// $database_file = "./db/app.sqlite";
 
-  $response['message'] = "Endpoint PUT /task/$id";
-} elseif ($method === 'PATCH' && preg_match('/^\/task\/([^\/]+)$/', $path, $matches)) {
-  $id = $matches[1];
+// $response = array();
 
-  $response['message'] = "Endpoint PATCH /task/$id";
-} elseif ($method === 'DELETE' && preg_match('/^\/task\/([^\/]+)$/', $path, $matches)) {
-  $id = $matches[1];
+// if ($method === 'GET' && $path === '/task') {
+//   try {
+//     $pdo = new PDO("sqlite:" . $databaseFile);
 
-  $response['message'] = "Endpoint DELETE /task/$id";
-} else {
-  http_response_code(404);
-  $response['error'] = 'Endpoint não encontrado';
-}
+//     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-echo json_encode($response);
+//     $stmt = $pdo->query("SELECT * FROM nome_da_tabela");
+
+//     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+//     $response['tasks'] = json_encode($results);
+//   } catch (PDOException $error) {
+//     echo "Erro de conexão com o banco de dados: " . $error->getMessage();
+//   }
+// } elseif ($method === 'GET' && preg_match('/^\/task\/([^\/]+)$/', $path, $matches)) {
+//   $id = $matches[1];
+
+//   $response['message'] = "Endpoint GET /task/$id";
+// } elseif ($method === 'POST' && $path === '/task') {
+//   $body = file_get_contents("php://input");
+
+//   $data = json_decode($body, true);
+
+//   if ($data === null) {
+//     http_response_code(400);
+//     $response['error'] = 'Erro ao decodificar o JSON do corpo da requisição';
+//     exit;
+//   }
+
+//   try {
+//     $task = $data['task'];
+//     $created_at = gmdate("d/m/Y");
+//     $updated_at = gmdate("d/m/Y");
+
+//     $pdo = (new SQLiteConnection())->connect();
+
+//     if ($pdo == null) {
+//       echo 'Whoops, could not connect to the SQLite database!';
+//       exit;
+//     }
+
+//     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+//     $query = "INSERT INTO tasks (task, created_at, updated_at) VALUES (:task, :created_at, :updated_at)";
+//     $stmt = $pdo->prepare($query);
+//     $stmt->bindParam(':task', $task);
+//     $stmt->bindParam(':created_at', $created_at);
+//     $stmt->bindParam(':updated_at', $updated_at);
+//     $stmt->execute();
+
+//     http_response_code(200);
+//     $response['message'] = "Tarefa cadastrada com sucesso";
+//   } catch (PDOException $error) {
+//     $response['error'] = 'Erro no banco de dados: ' . $error->getMessage();
+//   }
+// } elseif ($method === 'PUT' && preg_match('/^\/task\/([^\/]+)$/', $path, $matches)) {
+//   $id = $matches[1];
+
+//   $response['message'] = "Endpoint PUT /task/$id";
+// } elseif ($method === 'PATCH' && preg_match('/^\/task\/([^\/]+)$/', $path, $matches)) {
+//   $id = $matches[1];
+
+//   $response['message'] = "Endpoint PATCH /task/$id";
+// } elseif ($method === 'DELETE' && preg_match('/^\/task\/([^\/]+)$/', $path, $matches)) {
+//   $id = $matches[1];
+
+//   $response['message'] = "Endpoint DELETE /task/$id";
+// } else {
+//   http_response_code(404);
+//   $response['error'] = 'Endpoint não encontrado';
+// }
+
+// echo json_encode($response);
