@@ -21,7 +21,7 @@ class ListAllTasksRoute
         'created_at' => $row['created_at'],
         'updated_at' => $row['updated_at'],
         'task' => $row['task'],
-        'is_finished' => $row['is_finished']
+        'status' => $row['status']
       ];
     }
     return $tasks;

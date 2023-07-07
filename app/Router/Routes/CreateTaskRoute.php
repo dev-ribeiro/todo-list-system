@@ -12,8 +12,8 @@ class CreateTaskRoute
 
   public function create($taskName)
   {
-    $createdAt = gmdate('d/m/Y');
-    $updatedAt = gmdate('d/m/Y');
+    $createdAt = gmdate('d/m/Y', time());
+    $updatedAt = gmdate('d/m/Y', time());
 
     $sql = 'INSERT INTO tasks(task,created_at,updated_at) '
       . 'VALUES(:task,:start_date,:updated_at)';
