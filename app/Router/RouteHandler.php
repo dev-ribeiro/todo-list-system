@@ -3,6 +3,7 @@
 namespace App\Router;
 
 use App\Router\Routes\CreateTaskRoute;
+use App\Router\Routes\GetTaskByIdRoute;
 use App\Router\Routes\ListAllTasksRoute;
 
 
@@ -23,6 +24,12 @@ class RouteHandler
       $tasks = $route->getAllTasks();
 
       echo json_encode($tasks);
+    } elseif ($method == 'GET' && preg_match('/^\/task\/(\d+)$/', $path, $matches)) {
+      $id = $matches[1];
+
+      $route = new GetTaskByIdRoute($this->pdo);
+
+      $route->getTaskById($id);
     } elseif ($method == 'POST' && $path === '/task') {
       $body = json_decode(file_get_contents("php://input"));
 
