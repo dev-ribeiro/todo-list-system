@@ -6,7 +6,7 @@ use App\Router\Routes\CreateTaskRoute;
 use App\Router\Routes\GetTaskByIdRoute;
 use App\Router\Routes\ListAllTasksRoute;
 use App\Router\Routes\UpdateTaskName;
-
+use App\Router\Routes\UpdateTaskStatusToDone;
 
 class RouteHandler
 {
@@ -54,6 +54,14 @@ class RouteHandler
       $route = new UpdateTaskName($this->pdo);
 
       $route->updateTaskName($task, $id);
+    } elseif ($method == 'PATCH' && preg_match('/^\/task\/done\/(\d+)$/', $path, $matches)) {
+      $id = $matches[1];
+
+      $body = json_decode(file_get_contents("php://input"));
+
+      $route = new UpdateTaskStatusToDone($this->pdo);
+
+      $route->done($id);
     } else {
       http_response_code(404);
       echo "Route not found";
