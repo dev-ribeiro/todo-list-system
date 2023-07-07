@@ -2,7 +2,7 @@
 
 namespace App\Router\Routes;
 
-class UpdateTaskStatusToDone
+class UpdateTaskNameRoute
 {
   private \PDO $pdo;
 
@@ -11,15 +11,15 @@ class UpdateTaskStatusToDone
     $this->pdo = $pdo;
   }
 
-  public function done(int $id)
+  public function updateTaskName(string $task, int $id)
   {
     try {
-      $sql = "UPDATE tasks SET status=:status,updated_at=:updated_at WHERE id=:id";
+      $sql = "UPDATE tasks SET task=:task,updated_at=:updated_at WHERE id=:id";
       $stmt = $this->pdo->prepare($sql);
       $stmt->execute([
         'id' => $id,
-        'status' => 'finished',
-        'updated_at' => gmdate('d/m/Y', time())
+        'task' => $task,
+        'updated_at' => gmdate('d/m/Y')
       ]);
       http_response_code(204);
       echo "Updated!";

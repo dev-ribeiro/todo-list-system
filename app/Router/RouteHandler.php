@@ -6,9 +6,9 @@ use App\Router\Routes\CreateTaskRoute;
 use App\Router\Routes\DeleteTaskByIdRoute;
 use App\Router\Routes\GetTaskByIdRoute;
 use App\Router\Routes\ListAllTasksRoute;
-use App\Router\Routes\UpdateTaskName;
-use App\Router\Routes\UpdateTaskStatusToDone;
-use App\Router\Routes\UpdateTaskStatusToUndone;
+use App\Router\Routes\UpdateTaskNameRoute;
+use App\Router\Routes\UpdateTaskStatusToDoneRoute;
+use App\Router\Routes\UpdateTaskStatusToUndoneRoute;
 
 class RouteHandler
 {
@@ -53,19 +53,19 @@ class RouteHandler
         echo json_encode("Please pass new task name");
       }
 
-      $route = new UpdateTaskName($this->pdo);
+      $route = new UpdateTaskNameRoute($this->pdo);
 
       $route->updateTaskName($task, $id);
     } elseif ($method == 'PATCH' && preg_match('/^\/task\/done\/(\d+)$/', $path, $matches)) {
       $id = $matches[1];
 
-      $route = new UpdateTaskStatusToDone($this->pdo);
+      $route = new UpdateTaskStatusToDoneRoute($this->pdo);
 
       $route->done($id);
     } elseif ($method == 'PATCH' && preg_match('/^\/task\/undone\/(\d+)$/', $path, $matches)) {
       $id = $matches[1];
 
-      $route = new UpdateTaskStatusToUndone($this->pdo);
+      $route = new UpdateTaskStatusToUndoneRoute($this->pdo);
 
       $route->undone($id);
     } elseif ($method == 'DELETE' && preg_match('/^\/task\/(\d+)$/', $path, $matches)) {

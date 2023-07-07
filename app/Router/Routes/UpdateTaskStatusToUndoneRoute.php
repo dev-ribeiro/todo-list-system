@@ -2,7 +2,7 @@
 
 namespace App\Router\Routes;
 
-class UpdateTaskStatusToUndone
+class UpdateTaskStatusToUndoneRoute
 {
   private \PDO $pdo;
 
