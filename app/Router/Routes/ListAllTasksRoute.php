@@ -18,7 +18,6 @@ class ListAllTasksRoute
     while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
       $tasks[] = [
         'id' => $row['id'],
-        'project_name' => $row['project_name'],
         'created_at' => $row['created_at'],
         'updated_at' => $row['updated_at'],
         'task' => $row['task'],
