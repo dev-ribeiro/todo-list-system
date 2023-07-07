@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Router\RouteHandler;
+use App\SQLite\SQLiteConnection;
 
 class Server
 {
@@ -14,7 +15,11 @@ class Server
 
     $path = $_SERVER['PATH_INFO'] ?? '/';
 
-    $router = new RouteHandler();
+    $conn = new SQLiteConnection();
+
+    $pdo = $conn -> connect();
+
+    $router = new RouteHandler($pdo);
 
     $router -> handler($method, $path);
   }

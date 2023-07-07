@@ -14,7 +14,7 @@ final class CreateTasksTable extends AbstractMigration
       ->addColumn('created_at', 'datetime')
       ->addColumn('updated_at', 'datetime')
       ->addColumn('task', 'string', ['limit' => 255])
-      ->addColumn('isFinished', 'boolean', ['default' => false])
+      ->addColumn('is_finished', 'boolean', ['default' => false])
       ->create();
   }
 
