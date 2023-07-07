@@ -22,7 +22,7 @@ class UpdateTaskStatusToUndone
         'updated_at' => gmdate('d/m/Y', time())
       ]);
 
-      http_response_code(202);
+      http_response_code(204);
 
       echo json_encode("Updated!");
     } catch (\PDOException $error) {

@@ -2,7 +2,7 @@
 
 namespace App\Router\Routes;
 
-class UpdateTaskName
+class DeleteTaskByIdRoute
 {
   private \PDO $pdo;
 
@@ -11,21 +11,19 @@ class UpdateTaskName
     $this->pdo = $pdo;
   }
 
-  public function updateTaskName(string $task, int $id)
+  public function deleteTask($id)
   {
     try {
-      $sql = "UPDATE tasks SET task=:task,updated_at=:updated_at WHERE id=:id";
+      $sql = "DELETE FROM tasks WHERE id=:id";
       $stmt = $this->pdo->prepare($sql);
       $stmt->execute([
         'id' => $id,
-        'task' => $task,
-        'updated_at' => gmdate('d/m/Y')
       ]);
+
       http_response_code(204);
-      echo "Updated!";
+      echo json_encode("Task deleted successfully");
     } catch (\PDOException $error) {
-      http_response_code(400);
-      echo $error->getMessage();
+      echo json_encode($error->getMessage());
     }
   }
 }

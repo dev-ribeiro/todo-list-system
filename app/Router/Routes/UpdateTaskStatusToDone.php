@@ -21,7 +21,7 @@ class UpdateTaskStatusToDone
         'status' => 'finished',
         'updated_at' => gmdate('d/m/Y', time())
       ]);
-      http_response_code(202);
+      http_response_code(204);
       echo "Updated!";
     } catch (\PDOException $error) {
       http_response_code(400);

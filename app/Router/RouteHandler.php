@@ -3,6 +3,7 @@
 namespace App\Router;
 
 use App\Router\Routes\CreateTaskRoute;
+use App\Router\Routes\DeleteTaskByIdRoute;
 use App\Router\Routes\GetTaskByIdRoute;
 use App\Router\Routes\ListAllTasksRoute;
 use App\Router\Routes\UpdateTaskName;
@@ -58,22 +59,26 @@ class RouteHandler
     } elseif ($method == 'PATCH' && preg_match('/^\/task\/done\/(\d+)$/', $path, $matches)) {
       $id = $matches[1];
 
-      $body = json_decode(file_get_contents("php://input"));
-
       $route = new UpdateTaskStatusToDone($this->pdo);
 
       $route->done($id);
     } elseif ($method == 'PATCH' && preg_match('/^\/task\/undone\/(\d+)$/', $path, $matches)) {
       $id = $matches[1];
 
-      $body = json_decode(file_get_contents("php://input"));
-
       $route = new UpdateTaskStatusToUndone($this->pdo);
 
       $route->undone($id);
+    } elseif ($method == 'DELETE' && preg_match('/^\/task\/(\d+)$/', $path, $matches)) {
+      $id = $matches[1];
+
+      $body = json_decode(file_get_contents("php://input"));
+
+      $route = new DeleteTaskByIdRoute($this->pdo);
+
+      $route->deleteTask($id);
     } else {
       http_response_code(404);
-      echo "Route not found";
+      echo json_encode("Route not found");
     }
   }
 }
