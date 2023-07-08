@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Controllers\ApiController;
+use App\Controllers\ViewController;
 
 class Router
 {
@@ -18,8 +19,12 @@ class Router
     if (preg_match('/^\/api/', $path)) {
       $api = new ApiController($this->pdo);
       $api->index($method, $path);
+    } elseif ($method === 'GET' || $path === '/') {
+      $view = new ViewController();
+      $view->index();
     } else {
-      echo json_encode("Common route!");
+      http_response_code(403);
+      echo "Not Allowed";
     }
   }
 }
