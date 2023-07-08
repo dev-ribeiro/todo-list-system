@@ -17,6 +17,8 @@ class ApiController
 
   public function index(string $method, string $path)
   {
+    header("Content-Type: application/json");
+
     switch ($path) {
       case ($method === 'GET' && $path === '/api/task'): {
           $tasks = $this->taskModel->getAllTasks();

@@ -2,15 +2,12 @@
 
 namespace App;
 
-use App\Router\RouteHandler;
-use App\SQLite\SQLiteConnection;
+use App\Connections\SQLiteConnection;
 
 class Server
 {
   public function start()
   {
-    header("Content-Type: application/json");
-
     $method = $_SERVER['REQUEST_METHOD'];
 
     $path = $_SERVER['PATH_INFO'] ?? '/';
@@ -19,7 +16,7 @@ class Server
 
     $pdo = $conn -> connect();
 
-    $router = new RouteHandler($pdo);
+    $router = new Router($pdo);
 
     $router -> handler($method, $path);
   }

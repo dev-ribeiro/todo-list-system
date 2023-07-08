@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SQLite;
+namespace App\Connections;
 
 use App\Config;
 
