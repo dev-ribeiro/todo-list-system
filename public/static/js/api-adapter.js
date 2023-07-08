@@ -79,7 +79,7 @@ function getTaskById(id) {
   })
 }
 
-function updateTaskName(id,newTask) {
+function updateTaskName(id, newTask) {
   return new Promise((resolve, reject) => {
     const xhttp = new XMLHttpRequest();
 
@@ -100,6 +100,37 @@ function updateTaskName(id,newTask) {
     xhttp.open('PUT', `${API_URL}/task/${id}`, true);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(register));
+  })
+}
+
+function updateTaskStatus(id, status) {
+  return new Promise((resolve, reject) => {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = () => {
+      if (xhttp.readyState === XMLHttpRequest.DONE) {
+        if (xhttp.status === 204) {
+          const updatedStatus = status === 'pending' ? 'finished' : 'pending';
+          resolve(updatedStatus);
+        } else {
+          reject(new Error("There was a problem with the request."));
+        }
+      }
+    };
+
+    if (status === 'pending') {
+      xhttp.open('PATCH', `${API_URL}/task/done/${id}`, true);
+      xhttp.send();
+      return;
+    }
+
+    if (status === 'finished') {
+      xhttp.open('PATCH', `${API_URL}/task/undone/${id}`, true);
+      xhttp.send();
+      return;
+    }
+
+    reject(new Error('Invalid status'))
   })
 }
 

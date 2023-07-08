@@ -14,5 +14,8 @@
     "dev": "php -S localhost:8000",
     "phinx": "vendor/bin/phinx",
     "load": "composer dump-autoload -o"
+  },
+  "config": {
+    "process-timeout": 0
   }
 }

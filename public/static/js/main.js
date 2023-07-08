@@ -60,9 +60,24 @@ async function handleEditTask(id) {
 
 }
 
-function handleUpdateTaskStatus(id) {
-  database.updateTaskStatus(id);
-  managerTaskState();
+async function handleUpdateTaskStatus(ref, id) {
+  const status = $(ref).data('status');
+
+  try {
+    if (!status) {
+      throw new Error();
+    }
+
+    const newStatus = updateTaskStatus(id, status);
+
+    alert('Task updated successfully!');
+
+    $(ref).data('status', newStatus);
+
+    managerTaskState();
+  } catch (error) {
+    alert('Houve um erro', error.message);
+  }
 }
 
 async function showTaskFromDatabase({
@@ -88,8 +103,8 @@ async function showTaskFromDatabase({
     const date = $('<p>').text(`Atualizado em: ${formattedData}`);
     const showTask = $('<span>').text(task);
 
-    const checkBox = $('<button>').text(state);
-    $(checkBox).on('click', () => editStatusFn(id));
+    const button = $(`<button data-status="${status}">`).text(state);
+    $(button).on('click', () => editStatusFn(button, id));
 
     const deleteTask = $('<button>').text('Deletar');
     deleteTask.attr('class', 'deleteButton');
@@ -101,7 +116,7 @@ async function showTaskFromDatabase({
 
     $(editTask).on('click', () => editTaskFn(id));
 
-    box.append(checkBox);
+    box.append(button);
     box.append(showTask);
     box.append(date);
     box.append(deleteTask);
