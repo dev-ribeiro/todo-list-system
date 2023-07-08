@@ -1,0 +1,22 @@
+body {
+  margin: 0 auto;
+  max-width: 724px;
+}
+
+.taskForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.textAreaTask {
+  resize: none;
+  height: 5rem;
+}
+
+.tasksContainer div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
