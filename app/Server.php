@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Connections\MySQLConnection;
 use App\Connections\SQLiteConnection;
 
 class Server
@@ -12,12 +13,14 @@ class Server
 
     $path = $_SERVER['PATH_INFO'] ?? '/';
 
-    $conn = new SQLiteConnection();
+    $env = getenv('PHP_ENV');
 
-    $pdo = $conn -> connect();
+    $conn = $env === 'dev' ? new SQLiteConnection() : new MySQLConnection();
+
+    $pdo = $conn->connect();
 
     $router = new Router($pdo);
 
-    $router -> handler($method, $path);
+    $router->handler($method, $path);
   }
 }
