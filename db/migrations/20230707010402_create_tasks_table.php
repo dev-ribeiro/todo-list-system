@@ -11,8 +11,8 @@ final class CreateTasksTable extends AbstractMigration
     // Phinx create a primary key id auto increment
     $table = $this->table('tasks');
     $table
-      ->addColumn('created_at', 'datetime')
-      ->addColumn('updated_at', 'datetime')
+      ->addColumn('created_at', 'string')
+      ->addColumn('updated_at', 'string')
       ->addColumn('task', 'string', ['limit' => 255])
       ->addColumn('status', 'string', ['default' => 'pending'])
       ->create();

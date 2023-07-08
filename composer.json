@@ -11,8 +11,10 @@
     "robmorgan/phinx": "^0.13.4"
   },
   "scripts": {
-    "dev": "php -S localhost:8000",
-    "phinx": "vendor/bin/phinx",
+    "start:dev": "php -S localhost:8000 -d PHP_ENV=dev",
+    "start:prod": "php -S localhost:8000 -d PHP_ENV=prod",
+    "migrate:dev": "vendor/bin/phinx migrate --configuration=phinx.php",
+    "migrate:prod": "vendor/bin/phinx migrate --configuration=phinx.production.php",
     "load": "composer dump-autoload -o"
   },
   "config": {
