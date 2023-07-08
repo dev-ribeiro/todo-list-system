@@ -18,7 +18,13 @@ function handleRegisterTask(event) {
 }
 
 function handleDeleteTask(id) {
-  database.delete(id);
+  try {
+    deleteTask(id);
+    alert('Task deleted successfully!');
+  } catch (error) {
+    alert('Error: ', error.message);
+  }
+
   managerTaskState();
 }
 

@@ -57,3 +57,22 @@ function listAllTasks() {
     fetchData(updateTasks);
   });
 }
+
+function deleteTask(id){
+  return new Promise((resolve, reject) => {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = () => {
+      if (xhttp.readyState === XMLHttpRequest.DONE) {
+        if (xhttp.status === 204) {
+          resolve();
+        } else {
+          reject(new Error("There was a problem with the request."));
+        }
+      }
+    };
+
+    xhttp.open('DELETE', `${API_URL}/task/${id}`, true);
+    xhttp.send();
+  })
+}
