@@ -58,7 +58,28 @@ function listAllTasks() {
   });
 }
 
-function deleteTask(id){
+function getTaskById(id) {
+  return new Promise((resolve, reject) => {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = () => {
+      if (xhttp.readyState === XMLHttpRequest.DONE) {
+        if (xhttp.status === 200) {
+          const response = xhttp.responseText;
+          const data = JSON.parse(response);
+          resolve(data);
+        } else {
+          reject(new Error("There was a problem with the request."));
+        }
+      }
+    };
+
+    xhttp.open('GET', `${API_URL}/task/${id}`, true);
+    xhttp.send();
+  })
+}
+
+function deleteTask(id) {
   return new Promise((resolve, reject) => {
     const xhttp = new XMLHttpRequest();
 
