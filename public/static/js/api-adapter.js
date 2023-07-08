@@ -79,6 +79,30 @@ function getTaskById(id) {
   })
 }
 
+function updateTaskName(id,newTask) {
+  return new Promise((resolve, reject) => {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = () => {
+      if (xhttp.readyState === XMLHttpRequest.DONE) {
+        if (xhttp.status === 204) {
+          resolve();
+        } else {
+          reject(new Error("There was a problem with the request."));
+        }
+      }
+    };
+
+    const register = {
+      task: newTask
+    }
+
+    xhttp.open('PUT', `${API_URL}/task/${id}`, true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(register));
+  })
+}
+
 function deleteTask(id) {
   return new Promise((resolve, reject) => {
     const xhttp = new XMLHttpRequest();

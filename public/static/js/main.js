@@ -28,11 +28,13 @@ function handleDeleteTask(id) {
   managerTaskState();
 }
 
-function handleEditTask(id) {
+async function handleEditTask(id) {
   const dialog = document.getElementById('editModal');
 
   try {
-    const { task } = database.findTaskById(id);
+    const response = await getTaskById(id);
+
+    const { task } = { ...response };
 
     $('#newTask').attr('value', task);
 
@@ -42,9 +44,13 @@ function handleEditTask(id) {
       event.preventDefault();
       const newTask = $('#newTask').val();
 
-      database.updateTaskName(id, newTask);
-      dialog.close();
+      updateTaskName(id, newTask);
+
+      alert('Task updated successfully!');
+
       managerTaskState();
+
+      dialog.close();
     });
   } catch (error) {
     alert('Houve um erro', error.message);
