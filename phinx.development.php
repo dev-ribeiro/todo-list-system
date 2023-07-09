@@ -8,14 +8,11 @@ return
     ],
     'environments' => [
       'default_migration_table' => 'phinxlog',
-      'production' => [
-        'adapter' => 'mysql',
-        'name' => 'todo_list_app',
-        'host' => 'localhost',
-        'user' => 'root',
-        'pass' => 'root',
-        'port' => 3306,
-        'charset' => 'utf8',
+      'default_environment' => 'development',
+      'development' => [
+        'adapter' => 'sqlite',
+        'name' => 'db/app',
+        'suffix' => '.sqlite',
       ]
     ],
     'version_order' => 'creation'
