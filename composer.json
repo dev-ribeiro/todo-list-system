@@ -8,8 +8,7 @@
     }
   },
   "scripts": {
-    "start:dev": "php -S localhost:8000 -d PHP_ENV=dev",
-    "start:prod": "php -S localhost:8000 -d PHP_ENV=prod",
+    "start": "php -S localhost:8000",
     "phinx": "vendor/bin/phinx",
     "migrate:dev": "vendor/bin/phinx migrate --configuration=phinx.development.php",
     "migrate:prod": "vendor/bin/phinx migrate --configuration=phinx.php",
@@ -20,5 +19,8 @@
   },
   "require-dev": {
     "robmorgan/phinx": "^0.13.4"
+  },
+  "require": {
+    "vlucas/phpdotenv": "^5.5"
   }
 }

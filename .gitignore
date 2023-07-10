@@ -3,3 +3,7 @@ vendor/
 
 # Database
 *.sqlite
+*.db
+
+# Environment
+.env

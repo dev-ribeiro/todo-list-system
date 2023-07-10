@@ -13,9 +13,9 @@ class Server
 
     $path = $_SERVER['PATH_INFO'] ?? '/';
 
-    $env = getenv('PHP_ENV');
+    $env = $_ENV['PHP_ENV'] === 'production' ? 'production' : 'development';
 
-    $conn = $env === 'dev' ? new SQLiteConnection() : new MySQLConnection();
+    $conn = $_ENV['PHP_ENV'] === 'production' ? new MySQLConnection() : new SQLiteConnection();
 
     $pdo = $conn->connect();
 
