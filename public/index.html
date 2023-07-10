@@ -4,8 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEST JQUERY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>TODO LIST</title>
   <link rel="stylesheet" href="http://localhost:8000/static/css/main">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap" rel="stylesheet">
   <script src="http://localhost:8000/static/js/api-adapter"></script>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous" defer></script>
@@ -13,22 +16,33 @@
 </head>
 
 <body>
-  <h1>TODO LIST</h1>
-  <form class="taskForm" id="taskForm">
-    <label for="task">Informe a task:</label>
-    <textarea type="text" name="task" class="textAreaTask" id="textAreaTask"></textarea>
-    <button>REGISTRAR</button>
-  </form>
-  <div class="tasksContainer" id="tasksContainer"></div>
-
-  <dialog id="editModal">
-    <h2>Edite sua tarefa:</h2>
-    <form id="newTaskForm">
-      <label for="newTask"></label>
-      <input type="text" name="newTask" id="newTask">
-      <button>ATUALIZAR</button>
-    </form>
-    <button type="button" id="cancelEditModal">Cancelar</button>
+  <div class="container">
+    <section>
+      <h1>TODO LIST</h1>
+      <form class="taskForm" id="taskForm">
+        <label for="task">Digite a tarefa que deseja criar:</label>
+        <textarea type="text" name="task" class="textAreaTask" id="textAreaTask"></textarea>
+        <button class="submitRegisterButton">REGISTRAR</button>
+      </form>
+    </section>
+    <section>
+      <h2>Tarefas</h2>
+      <div class="tasksContainer" id="tasksContainer"></div>
+    </section>
+  </div>
+  <dialog class="editModal" id="editModal">
+    <div class="modalWrapper">
+      <h2>Edite sua tarefa:</h2>
+      <form id="newTaskForm" class="newTaskForm">
+        <input type="text" name="newTask" class="newTaskInput" id="newTask">
+        <div class="panelWrapper">
+          <button>ATUALIZAR</button>
+        </div>
+      </form>
+      <button type="button" id="cancelEditModal" class="cancelEditModal">
+        Cancelar
+      </button>
+    </div>
   </dialog>
 </body>
 

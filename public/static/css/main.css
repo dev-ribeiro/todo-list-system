@@ -1,22 +1,196 @@
+:root {
+  --heading: 'Poppins', sans-serif;
+  --body: 'Roboto', sans-serif;
+  --primary: #2563eb;
+  --red: #991b1b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: var(--body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading);
+  color: var(--primary);
+}
+
 body {
+  padding: 1rem 0;
+  position: relative;
+  max-height: 100vh;
+  max-width: 100vw;
+}
+
+.container {
   margin: 0 auto;
-  max-width: 724px;
+  /* padding: 1rem; */
+  width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border: 1px solid black;
+  border-radius: 12px;
+}
+
+.container section {
+  padding: 0.25rem 0.5rem;
 }
 
 .taskForm {
+  margin-top: 1rem;
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 0.5rem;
 }
 
+.taskForm label {
+  width: 100%;
+}
+
 .textAreaTask {
   resize: none;
+  width: 100%;
   height: 5rem;
 }
 
-.tasksContainer div {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+.submitRegisterButton {
+  all: unset;
+  padding: 0.5rem;
+  color: #fff;
+  background-color: var(--primary);
+  font-family: var(--body);
+  border-radius: 12px;
 }
 
+.tasksContainer {
+  padding: 1rem 0.75rem 2rem;
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: scroll;
+}
+
+.tasksContainer div {
+  padding: 0.75rem 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.tasksContainer button {
+  all: unset;
+  cursor: pointer;
+}
+
+.tasksContainer .deleteButton {
+  color: var(--red);
+}
+
+.taskName {
+  flex: 1;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.finished {
+  text-decoration: line-through;
+}
+
+.editModal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalWrapper {
+  position: absolute;
+  padding: 1rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+.newTaskForm {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.25rem;
+}
+
+.newTaskForm button {
+  all: unset;
+  font-family: var(--body);
+  font-size: 0.75rem;
+}
+
+.newTaskInput {
+  flex: 4;
+  padding: 0.75rem 0.25rem;
+  border: 1px solid black;
+}
+
+.panelWrapper {
+  flex: 1;
+}
+
+.panelWrapper button {
+  padding: 0.5rem;
+  color: #fff;
+  background-color: var(--primary);
+  border-radius: 8px;
+}
+
+.cancelEditModal {
+  all: unset;
+  cursor: pointer;
+  color: var(--red);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  * {
+    font-size: 12px;
+  }
+
+  section {
+    max-width: 100%;
+  }
+
+  .container {
+    padding: 0;
+    max-width: 100vw;
+    border: none;
+  }
+
+  .tasksContainer {
+    padding: 0;
+  }
+
+  .tasksContainer div {
+    padding: 0.25rem;
+  }
+
+  .modalWrapper {
+    width: 0;
+    max-width: 100%;
+  }
+}

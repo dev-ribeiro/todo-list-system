@@ -48,16 +48,15 @@ async function handleEditTask(id) {
 
       alert('Task updated successfully!');
 
-      managerTaskState();
-
       dialog.close();
+
+      managerTaskState();
     });
   } catch (error) {
     alert('Houve um erro', error.message);
   }
 
   dialog.show();
-
 }
 
 async function handleUpdateTaskStatus(ref, id) {
@@ -80,6 +79,7 @@ async function handleUpdateTaskStatus(ref, id) {
   }
 }
 
+
 async function showTaskFromDatabase({
   deleteTaskFn,
   editTaskFn,
@@ -89,24 +89,24 @@ async function showTaskFromDatabase({
 
   $('#tasksContainer').html('');
 
-  tasks.forEach(({ task, updated_at, status, id }) => {
-    const state = status === 'finished' ? 'concluído' : 'não concluído'
+  tasks.forEach(({ task, status, id }) => {
+    const state = status === 'finished' ? '🟢' : '🔴'
 
-    const formattedData = typeof window !== undefined
-      ? Intl.DateTimeFormat('pt-BR', {
-        dateStyle: "long",
-        timeStyle: "medium"
-      }).format(new Date(updated_at))
-      : new Date(updated_at).toLocaleDateString('pt-BR');
+    // const formattedData = typeof window !== undefined
+    //   ? Intl.DateTimeFormat('pt-BR', {
+    //     dateStyle: "long",
+    //     timeStyle: "medium"
+    //   }).format(new Date(updated_at))
+    //   : new Date(updated_at).toLocaleDateString('pt-BR');
 
     const box = $('<div>');
-    const date = $('<p>').text(`Atualizado em: ${formattedData}`);
-    const showTask = $('<span>').text(task);
+    // const date = $('<p>').text(`Atualizado em: ${formattedData}`);
+    const showTask = $(`<span class="taskName ${status === 'finished' ? 'finished' : ''}">`).text(task);
 
-    const button = $(`<button data-status="${status}">`).text(state);
-    $(button).on('click', () => editStatusFn(button, id));
+    const todoButton = $(`<button data-status="${status}">`).text(state);
+    $(todoButton).on('click', () => editStatusFn(todoButton, id));
 
-    const deleteTask = $('<button>').text('Deletar');
+    const deleteTask = $('<button class="deleteButton">').text('Deletar');
     deleteTask.attr('class', 'deleteButton');
 
     $(deleteTask).on('click', () => deleteTaskFn(id));
@@ -116,11 +116,11 @@ async function showTaskFromDatabase({
 
     $(editTask).on('click', () => editTaskFn(id));
 
-    box.append(button);
+    // box.append(date);
+    box.append(todoButton);
     box.append(showTask);
-    box.append(date);
-    box.append(deleteTask);
     box.append(editTask);
+    box.append(deleteTask);
 
     $('#tasksContainer').append(box);
   })
